@@ -1,0 +1,10 @@
+[project]
+name = "btc-coding-challenge-api"
+version = "0.0.0"
+description = "BTC API service"
+requires-python = ">=3.13"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
