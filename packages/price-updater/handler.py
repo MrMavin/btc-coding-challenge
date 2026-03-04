@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from coinstats import fetch_current_price, fetch_chart_24h
 from dynamo import get_coin, put_coin, scan_pending_bets, settle_bet, build_and_cache_leaderboard
-from websocket import broadcast_price_update
+from websocket import broadcast_price_update, broadcast_bet_settlements
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -26,9 +26,10 @@ def evaluate_ready_bets(current_price):
     pending = scan_pending_bets()
     if not pending:
         logger.info("No pending bets to evaluate")
-        return
+        return []
 
     logger.info(f"Evaluating {len(pending)} pending bet(s)")
+    settlements = []
     for user in pending:
         user_id = user["user_id"]
         direction = user.get("bet_direction")
@@ -36,7 +37,10 @@ def evaluate_ready_bets(current_price):
 
         delta = compute_score_delta(direction, bet_price, current_price)
         settle_bet(user_id, delta)
+        settlements.append({"user_id": user_id, "delta": delta})
         logger.info(f"Settled bet for user={user_id} direction={direction} bet_price={bet_price} current={current_price} delta={delta}")
+
+    return settlements
 
 
 def handler(event, context):
@@ -78,7 +82,9 @@ def handler(event, context):
         "last_updated": last_updated,
     })
 
-    evaluate_ready_bets(current_price)
+    settlements = evaluate_ready_bets(current_price)
 
     build_and_cache_leaderboard()
+
+    broadcast_bet_settlements(settlements)
     logger.info("Leaderboard cache updated")

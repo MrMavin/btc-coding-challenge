@@ -106,6 +106,7 @@ data "aws_iam_policy_document" "api" {
     actions = [
       "dynamodb:PutItem",
       "dynamodb:DeleteItem",
+      "dynamodb:UpdateItem",
     ]
     resources = [aws_dynamodb_table.connections.arn]
   }

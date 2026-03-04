@@ -51,3 +51,11 @@ def put_connection(connection_id):
 
 def delete_connection(connection_id):
     connections_table.delete_item(Key={"connection_id": connection_id})
+
+
+def update_connection_user_id(connection_id, user_id):
+    connections_table.update_item(
+        Key={"connection_id": connection_id},
+        UpdateExpression="SET user_id = :uid",
+        ExpressionAttributeValues={":uid": user_id},
+    )
