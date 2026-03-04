@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "check": "./scripts/check-prerequisites.sh",
-    "deploy:frontend": "./scripts/deploy-frontend.sh",
+    "frontend:setup": "./scripts/setup-frontend.sh",
+    "frontend:deploy": "./scripts/deploy-frontend.sh",
+    "frontend:dev": "./scripts/setup-frontend.sh && cd packages/nextjs && pnpm install && pnpm dev",
     "lambdas:build": "./scripts/deploy-lambdas.sh build",
     "lambdas:update": "./scripts/deploy-lambdas.sh update",
     "lambdas:list": "./scripts/deploy-lambdas.sh list",
@@ -11,6 +13,7 @@
     "tf:plan": "./scripts/tf.sh plan",
     "tf:apply": "./scripts/tf.sh apply",
     "tf:destroy": "./scripts/tf.sh destroy",
+    "setup": "./scripts/setup-all.sh",
     "test": "cd packages/test && uv run python test_api.py"
   }
 }
