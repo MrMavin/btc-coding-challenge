@@ -1,0 +1,15 @@
+{
+  "name": "@btc/root",
+  "private": true,
+  "scripts": {
+    "check": "./scripts/check-prerequisites.sh",
+    "deploy:frontend": "./scripts/deploy-frontend.sh",
+    "lambdas:build": "./scripts/deploy-lambdas.sh build",
+    "lambdas:update": "./scripts/deploy-lambdas.sh update",
+    "lambdas:list": "./scripts/deploy-lambdas.sh list",
+    "tf:init": "./scripts/tf.sh init",
+    "tf:plan": "./scripts/tf.sh plan",
+    "tf:apply": "./scripts/tf.sh apply",
+    "tf:destroy": "./scripts/tf.sh destroy"
+  }
+}
