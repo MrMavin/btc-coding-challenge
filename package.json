@@ -10,6 +10,7 @@
     "tf:init": "./scripts/tf.sh init",
     "tf:plan": "./scripts/tf.sh plan",
     "tf:apply": "./scripts/tf.sh apply",
-    "tf:destroy": "./scripts/tf.sh destroy"
+    "tf:destroy": "./scripts/tf.sh destroy",
+    "test": "cd packages/test && uv run python test_api.py"
   }
 }
