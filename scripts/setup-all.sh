@@ -48,7 +48,11 @@ step "Setting up frontend environment"
 step "Deploying frontend"
 "$SCRIPT_DIR/deploy-frontend.sh"
 
-# 8. Run tests
+# 8. Wait for lambdas to be ready
+step "Waiting 30s for services to initialize"
+sleep 30
+
+# 9. Run tests
 step "Running tests"
 cd "$(cd "$SCRIPT_DIR/.." && pwd)/packages/test"
 uv run python test_api.py
