@@ -14,4 +14,10 @@ else
   exit 1
 fi
 
-terraform -chdir="$TERRAFORM_DIR" "$@"
+# Pass COINSTATS_API_KEY from .env to Terraform if set
+EXTRA_VARS=()
+if [ -n "${COINSTATS_API_KEY:-}" ]; then
+  EXTRA_VARS+=(-var "coinstats_api_key=${COINSTATS_API_KEY}")
+fi
+
+terraform -chdir="$TERRAFORM_DIR" "$@" "${EXTRA_VARS[@]}"
