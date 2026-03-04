@@ -36,7 +36,7 @@ Intentionally simple — user picks a username, stored in `localStorage`. No tok
 
 | Command | What it does |
 |---------|-------------|
-| `pnpm setup` | End-to-end: prereqs → build → deploy → test |
+| `pnpm setup:all` | End-to-end: prereqs → build → deploy → test |
 | `pnpm check` | Validate Node, Terraform, AWS CLI, credentials |
 | `pnpm tf:init` | `terraform init` |
 | `pnpm tf:plan` | `terraform plan` |
@@ -63,7 +63,7 @@ Intentionally simple — user picks a username, stored in `localStorage`. No tok
 
 ```bash
 cp .env.example .env   # fill in AWS creds + CoinStats API key
-pnpm setup             # runs everything end-to-end
+pnpm setup:all             # runs everything end-to-end
 ```
 
 > **Required:** You must set `COINSTATS_API_KEY` in `.env` with a valid [CoinStats API](https://coinstats.app/) key. Without it, the price updater Lambda cannot fetch BTC prices and the game won't work.

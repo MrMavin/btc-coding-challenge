@@ -28,23 +28,27 @@ step "Checking prerequisites"
 step "Terraform init"
 "$SCRIPT_DIR/tf.sh" init
 
-# 3. Build lambdas
-step "Building lambdas"
-"$SCRIPT_DIR/deploy-lambdas.sh" build
-
-# 4. Terraform apply
+# 3. Terraform apply (creates buckets and infra)
 step "Terraform apply"
 "$SCRIPT_DIR/tf.sh" apply -auto-approve
 
-# 5. Setup frontend env
+# 4. Build and upload lambdas
+step "Building lambdas"
+"$SCRIPT_DIR/deploy-lambdas.sh" build
+
+# 5. Update lambdas to use uploaded code
+step "Terraform apply (update lambda code)"
+"$SCRIPT_DIR/tf.sh" apply -auto-approve
+
+# 6. Setup frontend env
 step "Setting up frontend environment"
 "$SCRIPT_DIR/setup-frontend.sh"
 
-# 6. Deploy frontend
+# 7. Deploy frontend
 step "Deploying frontend"
 "$SCRIPT_DIR/deploy-frontend.sh"
 
-# 7. Run tests
+# 8. Run tests
 step "Running tests"
 cd "$(cd "$SCRIPT_DIR/.." && pwd)/packages/test"
 uv run python test_api.py

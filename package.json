@@ -13,7 +13,7 @@
     "tf:plan": "./scripts/tf.sh plan",
     "tf:apply": "./scripts/tf.sh apply",
     "tf:destroy": "./scripts/tf.sh destroy",
-    "setup": "./scripts/setup-all.sh",
+    "setup:all": "./scripts/setup-all.sh",
     "test": "cd packages/test && uv run python test_api.py"
   }
 }
