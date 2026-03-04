@@ -31,7 +31,7 @@ export function MainView() {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-background relative">
+    <div className="h-screen w-full overflow-hidden bg-background relative">
       {/* Chart fills background */}
       <PriceChart
         chartData={chartData}

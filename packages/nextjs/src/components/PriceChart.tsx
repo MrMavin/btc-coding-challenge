@@ -34,6 +34,7 @@ export function PriceChart({ chartData, livePrice, bet }: PriceChartProps) {
     if (!containerRef.current) return;
 
     const chart = createChart(containerRef.current, {
+      autoSize: true,
       layout: {
         background: { type: ColorType.Solid, color: "transparent" },
         textColor: "#9ca3af",
@@ -49,20 +50,15 @@ export function PriceChart({ chartData, livePrice, bet }: PriceChartProps) {
         borderColor: "rgba(255,255,255,0.1)",
         rightOffset: 0,
         shiftVisibleRangeOnNewBar: true,
+        fixRightEdge: true,
+        fixLeftEdge: true,
+        lockVisibleTimeRangeOnResize: true,
       },
-      handleScroll: {
-        mouseWheel: false,
-        pressedMouseMove: false,
-        horzTouchDrag: false,
-        vertTouchDrag: false,
-      },
-      handleScale: {
-        axisPressedMouseMove: false,
-        mouseWheel: true,
-        pinch: true,
-      },
+      handleScroll: false,
+      handleScale: false,
       rightPriceScale: {
         borderColor: "rgba(255,255,255,0.1)",
+        borderVisible: false,
       },
       crosshair: {
         vertLine: { color: "rgba(247,147,26,0.3)" },
@@ -85,17 +81,7 @@ export function PriceChart({ chartData, livePrice, bet }: PriceChartProps) {
     seriesRef.current = series;
     dataLoadedRef.current = false;
 
-    // Resize observer
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { width, height } = entry.contentRect;
-        chart.applyOptions({ width, height });
-      }
-    });
-    observer.observe(containerRef.current);
-
     return () => {
-      observer.disconnect();
       chart.remove();
       chartRef.current = null;
       seriesRef.current = null;
@@ -170,5 +156,5 @@ export function PriceChart({ chartData, livePrice, bet }: PriceChartProps) {
     }
   }, [bet]);
 
-  return <div ref={containerRef} className="absolute inset-0 w-full h-full" />;
+  return <div ref={containerRef} className="absolute inset-0" />;
 }
