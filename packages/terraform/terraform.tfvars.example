@@ -1,0 +1,7 @@
+project_name      = "btc-coding-challenge"
+environment       = "dev"
+coinstats_api_key = "your-coinstats-api-key-here"
+
+# Set these after running: pnpm lambdas:build
+# price_updater_lambda_s3_key = "lambdas/price-updater/v0.0.1/handler.zip"
+# api_lambda_s3_key           = "lambdas/api/v0.0.1/handler.zip"
